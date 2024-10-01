@@ -1,0 +1,6 @@
+numpy
+rasterio
+pillow
+python-dotenv
+nvidia-tao
+matplotlib
