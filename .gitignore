@@ -1,3 +1,5 @@
 .env
 /flood-segmentation/flood_data/*/
 /flood-segmentation/tao_project
+*.onnx
+/env
