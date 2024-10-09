@@ -1,10 +1,13 @@
 import ee
 import os
 import geemap
+from dotenv import load_dotenv
+from sentinel import Sentinel
 
-class Sentinel1():
+class Sentinel1(Sentinel):
 
     def __init__(self):
+        load_dotenv()
         if os.getenv("KEY_FILE"):
             key_file = os.getenv("KEY_FILE")
         else:
