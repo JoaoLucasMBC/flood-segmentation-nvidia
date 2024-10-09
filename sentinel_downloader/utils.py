@@ -26,9 +26,11 @@ def divide_big_area(coords, step):
 
         # Create smaller bounding boxes
         for i in range(number_boxes_lat):
+            row_bbox = []
             for j in range(number_boxes_lon):
-                bbox = [coords[0] + i * step, coords[1] + j * step, coords[0] + (i + 1) * step, coords[1] + (j + 1) * step]
-                bbox_list.append(bbox)
+                bbox = (coords[0] + i * step, coords[1] + j * step, coords[0] + (i + 1) * step, coords[1] + (j + 1) * step)
+                row_bbox.append(bbox)
+            bbox_list.append(row_bbox)
 
         return bbox_list
 
