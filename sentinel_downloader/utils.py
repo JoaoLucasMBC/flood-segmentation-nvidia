@@ -7,13 +7,10 @@ def create_dir(save_dir):
             os.makedirs("./output")
 
         # create directory inside output if it does not exist, if exists return error
-        if not os.path.isdir(f".{save_dir}"):
-            os.makedirs(f".{save_dir}")
-        else:
-            raise ValueError("Directory already exists inside /output")
+        os.makedirs(f".{save_dir}")
         
-        os.makedirs(f"{save_dir}/tif", exist=True)
-        os.makedirs(f"{save_dir}/png", exist=True)
+        os.makedirs(f"{save_dir}/tif")
+        os.makedirs(f"{save_dir}/png")
 
 
 def divide_big_area(coords, step):

@@ -13,7 +13,7 @@ class Sentinel1():
         credentials = ee.ServiceAccountCredentials(None, key_file)
         ee.Initialize(credentials)
 
-    def collect_image(bbox_list, bbox_coords, time_interval, output_folder):
+    def collect_image(bbox_list, bbox_coords, time_interval, output_folder, filename):
         start_date = time_interval[0]
         end_date = time_interval[1]
 
@@ -31,7 +31,7 @@ class Sentinel1():
         for column_ in bbox_list:
             col = 0
             for row_ in column_:
-                output_filename = os.path.join(f"{output_folder}/tif", f'tile_{row}_{col}.tif')
+                output_filename = os.path.join(f"{output_folder}/tif", f'{filename}_{row}_{col}.tif')
                 col += 1
                 tile_geom = ee.Geometry.Rectangle(row_)
 
