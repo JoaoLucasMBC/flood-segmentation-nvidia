@@ -1,8 +1,8 @@
 from argparse import ArgumentParser
-from sentinel_downloader.sentinel1 import Sentinel1
-from sentinel_downloader.utils import divide_big_area, create_dir
-from sentinel_downloader.errors import Sentinel1ErrorHandler
-from sentinel_downloader.image_processing import process_image, normalize, png_conversion
+from sentinel1 import Sentinel1
+from utils import divide_big_area, create_dir
+from errors import Sentinel1ErrorHandler
+from image_processing import process_image, normalize, png_conversion
 import os
 import ast
 from datetime import datetime
@@ -24,12 +24,8 @@ def main():
         time_interval = ast.literal_eval(args.time_interval)
         Sentinel1ErrorHandler.time_interval_error_handling(time_interval)
 
-        # create /data directory if it does not exist
-        if not os.path.isdir("./data"):
-            os.makedirs("./data")
-
         # create directory inside data if it does not exist, if exists return error
-        save_dir = f"/data/{args.save_dir}"
+        save_dir = f"/output/{args.save_dir}"
 
         create_dir(save_dir)
     

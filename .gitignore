@@ -2,3 +2,11 @@
 /flood-segmentation/flood_data/*/
 /flood-segmentation/tao_project
 env/
+
+*/__pycache__/
+*/.ipynb_checkpoints/
+*/.vscode/
+*/.idea/
+*/.git/
+*/.gitignore
+*/.DS_Store

@@ -2,15 +2,15 @@ import math
 import os
 
 def create_dir(save_dir):
-        # create /data directory if it does not exist
-        if not os.path.isdir("./data"):
-            os.makedirs("./data")
+        # create /output directory if it does not exist
+        if not os.path.isdir("./output"):
+            os.makedirs("./output")
 
-        # create directory inside data if it does not exist, if exists return error
+        # create directory inside output if it does not exist, if exists return error
         if not os.path.isdir(f".{save_dir}"):
             os.makedirs(f".{save_dir}")
         else:
-            raise ValueError("Directory already exists inside /data")
+            raise ValueError("Directory already exists inside /output")
         
         os.makedirs(f"{save_dir}/tif", exist=True)
         os.makedirs(f"{save_dir}/png", exist=True)
