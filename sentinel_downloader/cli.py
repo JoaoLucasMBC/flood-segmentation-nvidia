@@ -73,3 +73,6 @@ def main():
     except Exception as e:
         print(e)
         print("Invalid input")
+
+if __name__ == "__main__":
+    main()
