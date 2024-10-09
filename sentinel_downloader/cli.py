@@ -16,7 +16,7 @@ def main():
     parser.add_argument("-c", "--coords", type=str, required=True)
     parser.add_argument("-t", "--time-interval", type=str, required=True)
     parser.add_argument("-r", "--resolution", type=int, required=False, default=512)
-    parser.add_argument("-s", "--save-dir", type=str, required=False, default=f"{datetime.now().strftime('%Y-%m-%d %H:%M')}")
+    parser.add_argument("-sd", "--save-dir", type=str, required=False, default=f"{datetime.now().strftime('%Y-%m-%d-%H:%M:%S')}")
     parser.add_argument("-f", "--filename", type=str, required=False, default="file")
 
     # Only for sentinel 2
@@ -33,6 +33,8 @@ def main():
 
         coords = ast.literal_eval(args.coords)
         coordinate_error_handling(coords)
+        if satellite == "sentinel1":
+            coords = (coords[1], coords[0], coords[3], coords[2])
 
         time_interval = ast.literal_eval(args.time_interval)
         time_interval_error_handling(time_interval)
@@ -50,7 +52,7 @@ def main():
         filename = args.filename
 
         if satellite == "sentinel1":
-    
+
             sentinel1 = Sentinel1()
 
             if abs(abs(coords[0]) - abs(coords[2])) > step or abs(abs(coords[1]) - abs(coords[3])) > step:
@@ -64,7 +66,7 @@ def main():
 
             image_final_list = normalize(vv_vh_list)
 
-            png_conversion(image_final_list, filenames, save_dir)
+            png_conversion(image_final_list, filenames, save_dir, resolution[0])
 
         elif satellite == "sentinel2":
             # Finish image collection here for sentinel 2
@@ -72,7 +74,6 @@ def main():
 
     except Exception as e:
         print(e)
-        print("Invalid input")
 
 if __name__ == "__main__":
     main()

@@ -5,14 +5,16 @@ def create_dir(save_dir):
         # create /output directory if it does not exist
         if not os.path.isdir("./output"):
             os.makedirs("./output")
+            os.chmod("./output", 0o777)
 
         # create directory inside output if it does not exist, if exists return error
         os.makedirs(f".{save_dir}")
+        os.chmod(f".{save_dir}", 0o777)
         
-        os.makedirs(f"{save_dir}/tif")
-        os.makedirs(f"{save_dir}/png")
+        os.makedirs(f".{save_dir}/tif")
+        os.makedirs(f".{save_dir}/png")
 
-
+    
 def divide_big_area(coords, step):
         # Create list to hold smaller bounding boxes
         bbox_list = []

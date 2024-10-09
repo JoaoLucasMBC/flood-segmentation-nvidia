@@ -10,3 +10,6 @@ env/
 */.git/
 */.gitignore
 */.DS_Store
+
+output/
+sentinel_downloader/*.json

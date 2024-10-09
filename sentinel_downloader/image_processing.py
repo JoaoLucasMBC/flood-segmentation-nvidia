@@ -19,9 +19,9 @@ def process_image(output_folder):
     filenames = []
 
     # Loop through all files in the output folder
-    for filename in os.listdir(f"{output_folder}/tif"):
+    for filename in os.listdir(f".{output_folder}/tif"):
         if filename.endswith('.tif'):  # Check if the file is a .tif file
-            tiff_file = os.path.join(f"{output_folder}/tif", filename)
+            tiff_file = os.path.join(f".{output_folder}/tif", filename)
             
             # Open the .tif file
             with rasterio.open(tiff_file) as dataset:
@@ -54,8 +54,8 @@ def normalize(vv_vh_list):
     return image_final_list
 
 
-def png_conversion(output_folder, image_final_list, filenames, crop_size=512):
-    png_folder = f"{output_folder}/png"
+def png_conversion(image_final_list, filenames, output_folder, crop_size):
+    png_folder = f".{output_folder}/png"
 
     for i, image in enumerate(image_final_list):
         cropped_img = image[:crop_size, :crop_size]

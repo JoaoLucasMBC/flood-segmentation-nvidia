@@ -51,7 +51,7 @@ def resolution_error_handling(resolution: int, satellite: str):
     if resolution <= 0:
         raise ValueError("Invalid resolution, it must be greater than 0.")
     if satellite == "sentinel1":
-        if resolution not in [128,256,512]:
+        if resolution not in [128,256,512, 1024]:
             raise ValueError("Invalid resolution, please choose between 128, 256, or 512 for Sentinel 1.")
     if satellite == "sentinel2":
         if resolution not in [128,256,512,1024,2048]:
