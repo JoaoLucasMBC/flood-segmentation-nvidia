@@ -1,0 +1,35 @@
+dataset_config {
+  dataset: "custom"
+  augment: true
+  augmentation_config {
+    spatial_augmentation {
+      hflip_probability : 0.5
+      vflip_probability : 0.5
+      crop_and_resize_prob : 0.5
+    }
+  }
+  input_image_type: "color"
+  train_images_path:"/workspace/tao-experiments/data/images/train"
+  train_masks_path:"/workspace/tao-experiments/data/masks/train"
+
+  val_images_path:"/workspace/tao-experiments/data/images/val"
+  val_masks_path:"/workspace/tao-experiments/data/masks/val"
+  
+  test_images_path:"/workspace/tao-experiments/data/images/val"
+  
+  data_class_config {
+    target_classes {
+      name: "notflood"
+      mapping_class: "notflood"
+      label_id: 0
+    }
+    target_classes {
+      name: "flood"
+      mapping_class: "flood"
+      label_id: 255
+    }
+  }
+}
+
+#### LEAVE LINE
+
