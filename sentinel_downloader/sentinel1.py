@@ -2,7 +2,7 @@ import ee
 import os
 import geemap
 
-class Sentinel1:
+class Sentinel1():
 
     def __init__(self):
         if os.getenv("KEY_FILE"):

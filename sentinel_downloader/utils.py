@@ -2,15 +2,15 @@ import math
 import os
 
 def create_dir(save_dir):
-        # create /data directory if it does not exist
-        if not os.path.isdir("./data"):
-            os.makedirs("./data")
+        # create /output directory if it does not exist
+        if not os.path.isdir("./output"):
+            os.makedirs("./output")
 
-        # create directory inside data if it does not exist, if exists return error
+        # create directory inside output if it does not exist, if exists return error
         if not os.path.isdir(f".{save_dir}"):
             os.makedirs(f".{save_dir}")
         else:
-            raise ValueError("Directory already exists inside /data")
+            raise ValueError("Directory already exists inside /output")
         
         os.makedirs(f"{save_dir}/tif", exist=True)
         os.makedirs(f"{save_dir}/png", exist=True)
@@ -24,13 +24,11 @@ def divide_big_area(coords, step):
         number_boxes_lat = math.ceil(abs(coords[0] - coords[2]) / step) # rows
         number_boxes_lon = math.ceil(abs(coords[1] - coords[3]) / step) # columns
 
-        print(number_boxes_lat, number_boxes_lon)
-
         # Create smaller bounding boxes
         for i in range(number_boxes_lat):
             row_bbox = []
             for j in range(number_boxes_lon):
-                bbox = [coords[0] + i * step, coords[1] + j * step, coords[0] + (i + 1) * step, coords[1] + (j + 1) * step]
+                bbox = (coords[0] + i * step, coords[1] + j * step, coords[0] + (i + 1) * step, coords[1] + (j + 1) * step)
                 row_bbox.append(bbox)
             bbox_list.append(row_bbox)
 
