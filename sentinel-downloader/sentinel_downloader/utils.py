@@ -8,11 +8,11 @@ def create_dir(save_dir):
             os.chmod("./output", 0o777)
 
         # create directory inside output if it does not exist, if exists return error
-        os.makedirs(f".{save_dir}")
-        os.chmod(f".{save_dir}", 0o777)
+        os.makedirs(f"{save_dir}")
+        os.chmod(f"{save_dir}", 0o777)
         
-        os.makedirs(f".{save_dir}/tif")
-        os.makedirs(f".{save_dir}/png")
+        os.makedirs(f"{save_dir}/tif")
+        os.makedirs(f"{save_dir}/png")
 
     
 def divide_big_area(coords, step):

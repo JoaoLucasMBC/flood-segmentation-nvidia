@@ -34,7 +34,7 @@ class Sentinel1(Sentinel):
         for column_ in bbox_list:
             col = 0
             for row_ in column_:
-                output_filename = os.path.join(f".{output_folder}/tif", f'{filename}_{row}_{col}.tif')
+                output_filename = os.path.join(f"{output_folder}/tif", f'{filename}_{row}_{col}.tif')
                 col += 1
                 tile_geom = ee.Geometry.Rectangle(row_)
 

@@ -45,7 +45,8 @@ def main():
         step = 0.0459937425 * args.resolution / 512
 
         save_dir_error_handling(args.save_dir)
-        save_dir = f"/output/{args.save_dir}"
+        # save_dir = os.path.join(os.getcwd(), "output", args.save_dir) --> change to users cwd?
+        save_dir = f"./output/{args.save_dir}"
         create_dir(save_dir)
 
         filename_error_handling(args.filename)
