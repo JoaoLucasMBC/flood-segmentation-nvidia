@@ -26,7 +26,7 @@ def main():
     parser.add_argument("-res", "--resolution", type=int, required=False, default=512)
     parser.add_argument("-s", "--save_dir", type=str, required=False, default="/")
     parser.add_argument("-n", "--name", type=str, required=False)
-    parser.add_argument("-st", "--step", type=float, required=False, default=0.05)
+    parser.add_argument("-st", "--step", type=float, required=False, default=0.0459937425)
     parser.add_argument("-cr", "--cloud-removal", type=bool, required=False, default=False)
 
     
@@ -77,12 +77,14 @@ def main():
         if not args.cloud_removal:
             for coord in coords:
                 image = sentinel2.collect_image(BBox([coord[1], coord[0], coord[3], coord[2]], crs=CRS.WGS84), evalscript, time_interval, resolution, config)
+                image = sentinel2.scale_and_clip_image(image)
                 if len(coords) == 1 and args.name:
                     Image.fromarray(image).save(f".{save_dir}/{args.name}")
                 else: Image.fromarray(image).save(f".{save_dir}/{coord[0]}_{coord[1]}_{coord[2]}_{coord[3]}.png")
         else:
             for coord in coords:
                 image = sentinel2.collect_best_image(BBox([coord[1], coord[0], coord[3], coord[2]], crs=CRS.WGS84), evalscript, time_interval, resolution, config)
+                image = sentinel2.scale_and_clip_image(image)
                 if len(coords) == 1 and args.name:
                     Image.fromarray(image).save(f".{save_dir}/{args.name}")
                 else: Image.fromarray(image).save(f".{save_dir}/{coord[0]}_{coord[1]}_{coord[2]}_{coord[3]}.png")
