@@ -5,6 +5,8 @@
 *.onnx
 /env
 
+save
+
 __pycache__/
 
 /stats/*.tif
