@@ -1,5 +1,6 @@
 import math
 import os
+import sys
 
 def create_dir(save_dir, satellite):
         # create /output directory if it does not exist
@@ -51,3 +52,12 @@ def load_evalscript(script_name):
         except:
             raise ValueError(f"Invalid evalscript name: {script_name}.\n Please make sure the evalscript exists in the 'evalscripts' folder.")
         return evalscript
+
+class SuppressPrints:
+    def __enter__(self):
+        self._original_stdout = sys.stdout
+        sys.stdout = open(os.devnull, 'w')
+
+    def __exit__(self, exc_type, exc_value, traceback):
+        sys.stdout.close()
+        sys.stdout = self._original_stdout

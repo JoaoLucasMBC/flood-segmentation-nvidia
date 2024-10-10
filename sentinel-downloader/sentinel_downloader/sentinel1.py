@@ -3,6 +3,7 @@ import os
 import geemap
 from dotenv import load_dotenv
 from sentinel import Sentinel
+from utils import SuppressPrints
 
 class Sentinel1(Sentinel):
 
@@ -29,24 +30,28 @@ class Sentinel1(Sentinel):
             .filter(ee.Filter.eq('instrumentMode', 'IW')) \
             .mosaic()
 
-        row = 0
-        for column_ in bbox_list:
-            col = 0
-            for row_ in column_:
-                output_filename = os.path.join(f"{output_folder}/sentinel1/tif", f'{filename}_{row}_{col}.tif')
-                col += 1
-                tile_geom = ee.Geometry.Rectangle(row_)
+        try:
+            row = 0
+            for column_ in bbox_list:
+                col = 0
+                for row_ in column_:
+                    output_filename = os.path.join(f"{output_folder}/sentinel1/tif", f'{filename}_{row}_{col}.tif')
+                    col += 1
+                    tile_geom = ee.Geometry.Rectangle(row_)
 
-                try:
-                    # Export the image for the current tile
-                    geemap.ee_export_image(
-                        sentinel_1,
-                        filename=output_filename,
-                        scale=10,  
-                        region=tile_geom,
-                        file_per_band=False
-                    )
-                    #print(f"Tile {row}, {col} downloaded successfully")
-                except Exception as e:
-                    print(f"Error downloading tile {row}, {col}: {e}")
-            row += 1
+                    
+                    with SuppressPrints():
+                        geemap.ee_export_image(
+                            sentinel_1,
+                            filename=output_filename,
+                            scale=10,  
+                            region=tile_geom,
+                            file_per_band=False
+                        )
+
+                    if not os.path.exists(output_filename):
+                        raise ValueError(f"Error downloading tile {row}, {col}: {e}")
+                        
+                row += 1
+        except Exception as e:
+            raise ValueError(f"Error downloading images from Sentinel 1, problems could include no available data for the given coordinates or time interval.")

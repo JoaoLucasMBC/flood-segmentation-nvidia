@@ -7,6 +7,7 @@ from image_processing import process_image, normalize, png_conversion
 import os
 import ast
 from datetime import datetime
+import shutil
 
 def main():
     parser = ArgumentParser(description="Sentinel-Downloader API")
@@ -25,6 +26,8 @@ def main():
     parser.add_argument("-cr", "--cloud-removal", type=bool, required=False, default=False)
 
     args = parser.parse_args()
+
+    save_dir = None
 
     try:
         # Error handling
@@ -53,23 +56,6 @@ def main():
         filename_error_handling(args.filename)
         filename = args.filename
 
-        if satellite == "sentinel1" or satellite == "both":
-
-            sentinel1 = Sentinel1()
-
-            if abs(abs(coords[0]) - abs(coords[2])) > step or abs(abs(coords[1]) - abs(coords[3])) > step:
-                list_coords = divide_big_area(coords, step)
-            else:
-                list_coords = [[coords]]
-
-            sentinel1.collect_image(list_coords, coords, time_interval, save_dir, filename)
-
-            vv_vh_list, filenames = process_image(save_dir)
-
-            image_final_list = normalize(vv_vh_list)
-
-            png_conversion(image_final_list, filenames, save_dir, resolution[0])
-
         if satellite == "sentinel2" or satellite == "both":
             
             evalscript = args.evalscript
@@ -90,8 +76,27 @@ def main():
                 sentinel2.collect_best_image(list_coords, evalscript, time_interval, resolution, save_dir, filename)
             else:
                 sentinel2.collect_image(list_coords, evalscript, time_interval, resolution, save_dir, filename)
+
+        if satellite == "sentinel1" or satellite == "both":
+
+            sentinel1 = Sentinel1()
+
+            if abs(abs(coords[0]) - abs(coords[2])) > step or abs(abs(coords[1]) - abs(coords[3])) > step:
+                list_coords = divide_big_area(coords, step)
+            else:
+                list_coords = [[coords]]
+
+            sentinel1.collect_image(list_coords, coords, time_interval, save_dir, filename)
+
+            vv_vh_list, filenames = process_image(save_dir)
+
+            image_final_list = normalize(vv_vh_list)
+            print(resolution)
+            png_conversion(image_final_list, filenames, save_dir, resolution[0])
             
     except Exception as e:
+        if save_dir:
+            shutil.rmtree(save_dir)
         print(e)
 
 if __name__ == "__main__":
