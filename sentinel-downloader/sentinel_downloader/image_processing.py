@@ -70,3 +70,16 @@ def png_conversion(image_final_list, filenames, output_folder, crop_size):
         os.remove(file_path)
     os.rmdir(tif_folder)
     
+def scale_and_clip_image(image, factor=3.5 / 255, clip_range=(0, 1)):
+        rgb = image[..., :3]
+        alpha = image[..., 3:]
+        
+        scaled_rgb = np.clip(rgb * factor, *clip_range)
+        scaled_rgb = (scaled_rgb * 255).astype(np.uint8)
+        
+        return np.concatenate([scaled_rgb, alpha], axis=-1)
+
+def count_obstructed_pixels(image):
+        cloud_pixels = np.all(image == 255, axis=-1)
+        black_pixels = np.all(image == 0, axis=-1)
+        return np.sum(cloud_pixels) + np.sum(black_pixels)

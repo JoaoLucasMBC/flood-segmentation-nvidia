@@ -3,7 +3,7 @@
 /flood-segmentation/tao_project
 env/
 
-*/__pycache__/
+__pycache__
 */.ipynb_checkpoints/
 */.vscode/
 */.idea/
@@ -12,4 +12,4 @@ env/
 */.DS_Store
 
 output/
-sentinel_downloader/*.json
+sentinel-downloader/*/*.json

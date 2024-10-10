@@ -22,8 +22,6 @@ def coordinate_error_handling(coords: tuple):
         raise ValueError('Invalid coordinates, please input 4 values for the north-west latitude, north-west longitude, south-east latitude, and south-east longitude, respectively.')
     if not all(isinstance(coord, (int, float)) for coord in coords):
         raise ValueError("Invalid coordinates, all tuple values must be integers or floats.")
-    if coords[0] < coords[2]:
-        raise ValueError("Invalid coordinates, the latitude of the northwest corner must be greater than the latitude of the southeast corner.")
     if not (-90 <= coords[0] <= 90 and -180 <= coords[1] <= 180 and -90 <= coords[2] <= 90 and -180 <= coords[3] <= 180):
         raise ValueError("Invalid coordinates, latitude value must be between -90 and 90 and longitude value must be between -180 and 180.")
 
@@ -71,3 +69,13 @@ def filename_error_handling(filename: str):
         raise ValueError("Invalid filename, please input a string.")
     if "/" in filename or "\\" in filename or "." in filename or " " in filename:
         raise ValueError("Invalid filename, it must not contain any special characters, spaces, or file extensions.")
+    
+def evalscript_error_handling(evalscript: str):
+    if not isinstance(evalscript, str):
+        raise ValueError("Invalid evalscript, please input a string.")
+    if evalscript not in ("rgb", "water", "vegetation", "urban", "cloud"):
+        raise ValueError("Invalid evalscript, please choose between 'rgb', 'water', 'vegetation', 'urban', or 'cloud'.")
+    
+def cloud_removal_error_handling(cloud_removal: bool):
+    if not isinstance(cloud_removal, bool):
+        raise ValueError("Invalid cloud removal, please input a boolean value 'true' or 'false'.")

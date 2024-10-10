@@ -1,6 +1,7 @@
 from argparse import ArgumentParser
 from sentinel1 import Sentinel1
-from utils import divide_big_area, create_dir
+from sentinel2 import Sentinel2
+from utils import divide_big_area, create_dir, load_evalscript
 from error_handler import *
 from image_processing import process_image, normalize, png_conversion
 import os
@@ -71,10 +72,27 @@ def main():
 
             png_conversion(image_final_list, filenames, save_dir, resolution[0])
 
-        if satellite == "sentinel2" or satellite == "both":
-            # Finish image collection here for sentinel 2
-            pass
+        elif satellite == "sentinel2" or satellite == "both":
+            
+            evalscript = args.evalscript
+            evalscript_error_handling(evalscript)
+            evalscript = load_evalscript(evalscript)
 
+            cloud_removal = args.cloud_removal
+            cloud_removal_error_handling(cloud_removal)
+
+            sentinel2 = Sentinel2()
+
+            if abs(abs(coords[0]) - abs(coords[2])) > step or abs(abs(coords[1]) - abs(coords[3])) > step:
+                list_coords = divide_big_area(coords, step)
+            else:
+                list_coords = [[coords]]
+
+            if cloud_removal:
+                sentinel2.collect_best_image(list_coords, evalscript, time_interval, resolution, save_dir, filename)
+            else:
+                sentinel2.collect_image(list_coords, evalscript, time_interval, resolution, save_dir, filename)
+            
     except Exception as e:
         print(e)
 
