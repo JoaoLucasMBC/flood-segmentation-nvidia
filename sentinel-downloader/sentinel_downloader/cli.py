@@ -34,10 +34,8 @@ def main():
 
         coords = ast.literal_eval(args.coords)
         coordinate_error_handling(coords)
-        if satellite == "sentinel1":
-            coords = (coords[1], coords[0], coords[3], coords[2])
-        if satellite == "both":
-            coords_sen1 = (coords[1], coords[0], coords[3], coords[2])
+        coords = (coords[1], coords[0], coords[3], coords[2])
+        
 
         time_interval = ast.literal_eval(args.time_interval)
         time_interval_error_handling(time_interval)
@@ -72,7 +70,7 @@ def main():
 
             png_conversion(image_final_list, filenames, save_dir, resolution[0])
 
-        elif satellite == "sentinel2" or satellite == "both":
+        if satellite == "sentinel2" or satellite == "both":
             
             evalscript = args.evalscript
             evalscript_error_handling(evalscript)
@@ -87,7 +85,7 @@ def main():
                 list_coords = divide_big_area(coords, step)
             else:
                 list_coords = [[coords]]
-
+            
             if cloud_removal:
                 sentinel2.collect_best_image(list_coords, evalscript, time_interval, resolution, save_dir, filename)
             else:

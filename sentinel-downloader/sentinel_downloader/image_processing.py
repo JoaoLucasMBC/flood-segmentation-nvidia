@@ -19,9 +19,9 @@ def process_image(output_folder):
     filenames = []
 
     # Loop through all files in the output folder
-    for filename in os.listdir(f"{output_folder}/tif"):
+    for filename in os.listdir(f"{output_folder}/sentinel1/tif"):
         if filename.endswith('.tif'):  # Check if the file is a .tif file
-            tiff_file = os.path.join(f"{output_folder}/tif", filename)
+            tiff_file = os.path.join(f"{output_folder}/sentinel1/tif", filename)
             
             # Open the .tif file
             with rasterio.open(tiff_file) as dataset:

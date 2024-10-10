@@ -46,7 +46,7 @@ class Sentinel1(Sentinel):
                         region=tile_geom,
                         file_per_band=False
                     )
-                    print(f"Tile {row}, {col} downloaded successfully")
+                    #print(f"Tile {row}, {col} downloaded successfully")
                 except Exception as e:
                     print(f"Error downloading tile {row}, {col}: {e}")
             row += 1

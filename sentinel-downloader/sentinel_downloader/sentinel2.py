@@ -40,7 +40,7 @@ class Sentinel2(Sentinel):
             for j, coord in enumerate(coords): 
                 image = self.sentinelhub_request(evalscript, DataCollection.SENTINEL2_L2A, time_interval, BBox(coord, CRS.WGS84), resolution)
                 image = scale_and_clip_image(image)
-                output_filename = os.path.join(f"{output_folder}/png", f'{filename}_{i}_{j}.png')
+                output_filename = os.path.join(f"{output_folder}/sentinel2", f'{filename}_{i}_{j}.png')
                 Image.fromarray(image).save(output_filename)
     
     def collect_best_image(self, list_coordinates, evalscript, time_interval, resolution, output_folder, filename):
@@ -48,15 +48,17 @@ class Sentinel2(Sentinel):
 
         date_list = [(time_interval[0] + timedelta(days=x)).strftime('%Y-%m-%d') for x in range(0, (time_interval[1] - time_interval[0]).days + 1, 5)]
         
+        cloud_evalscript = load_evalscript("cloud")
+
         for i, coords in enumerate(list_coordinates):
+
+            best_time_interval = None
+            best_cloud_pixels = float("inf")
+
             for j, coord in enumerate(coords): 
-                best_time_interval = None
-                best_cloud_pixels = float("inf")
-
-                cloud_evalscript = load_evalscript("cloud")
-
-                for i in range(len(date_list) - 1):
-                    time_interval = (date_list[i], date_list[i + 1])
+                for d in range(len(date_list) - 1):
+                    
+                    time_interval = (date_list[d], date_list[d + 1])
 
                     image = self.sentinelhub_request(cloud_evalscript, DataCollection.SENTINEL2_L2A, time_interval, BBox(coord, CRS.WGS84), (512,512))
                     obstructed_pixels = count_obstructed_pixels(image)
@@ -70,5 +72,5 @@ class Sentinel2(Sentinel):
 
                 image = self.sentinelhub_request(evalscript, DataCollection.SENTINEL2_L2A, best_time_interval, BBox(coord, CRS.WGS84), resolution)
                 image = scale_and_clip_image(image)
-                output_filename = os.path.join(f"{output_folder}/png", f'{filename}_{i}_{j}.png')
+                output_filename = os.path.join(f"{output_folder}/sentinel2", f'{filename}_{i}_{j}.png')
                 Image.fromarray(image).save(output_filename)
