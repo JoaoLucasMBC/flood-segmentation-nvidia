@@ -1,4 +1,23 @@
 .env
+
 /flood-segmentation/flood_data/*/
 /flood-segmentation/tao_project
-save
+*.onnx
+/env
+
+__pycache__/
+
+/stats/*.tif
+
+# Ignore everything in the stats/data folder
+/stats/data/**
+
+# Un-ignore specific subdirectories
+!/stats/data/canoas
+!/stats/data/canoas/**
+!/stats/data/canoas_no_flood
+!/stats/data/canoas_no_flood/**
+!/stats/data/output_canoas
+!/stats/data/output_canoas/**
+!/stats/data/output_canoas_no_flood
+!/stats/data/output_canoas_no_flood/**

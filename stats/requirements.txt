@@ -1,0 +1,9 @@
+numpy
+Pillow
+matplotlib
+onnxruntime
+ipykernel
+rasterio
+shapely
+geopandas
+scipy
