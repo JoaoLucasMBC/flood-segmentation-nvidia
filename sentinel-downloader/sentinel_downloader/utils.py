@@ -33,3 +33,12 @@ def divide_big_area(coords, step):
 
         return bbox_list
 
+
+def load_evalscript(script_name):
+        try:
+            script_path = os.path.abspath(os.path.join(os.path.dirname(__file__), 'evalscripts', script_name + ".js"))
+            with open(script_path, 'r') as file:
+                evalscript = file.read()
+        except:
+            raise ValueError(f"Invalid evalscript name: {script_name}.\n Please make sure the evalscript exists in the 'evalscripts' folder.")
+        return evalscript
