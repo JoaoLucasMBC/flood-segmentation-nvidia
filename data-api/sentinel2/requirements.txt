@@ -1,6 +1,0 @@
-numpy
-pandas
-pillow
-matplotlib
-sentinelhub
-python-dotenv
