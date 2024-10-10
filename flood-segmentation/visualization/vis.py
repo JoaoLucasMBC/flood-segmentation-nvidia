@@ -3,6 +3,7 @@ import random
 import os
 from datetime import datetime
 from dotenv import load_dotenv
+from pathlib import Path
 
 
 # define simple grid visualizer
@@ -38,4 +39,5 @@ def visualize_images(num_images=10):
     print(f"Image saved as {output_path}")
 
 if __name__ == "__main__":
+    load_dotenv(dotenv_path=Path('../config/.env'))
     visualize_images()
