@@ -5,8 +5,10 @@ from datetime import datetime
 def satellite_error_handling(satellite: str):
     if not isinstance(satellite, str):
         raise ValueError("Invalid satellite, please input a string.")
-    if satellite not in ["sentinel1", "sentinel2", "sen1", "sen2", "s1", "s2"]:
-        raise ValueError("Invalid satellite, please choose between 'sentinel1/sen1/s1' or 'sentinel2/sen2/s1'.")
+    if satellite not in ["sentinel1", "sentinel2", "sen1", "sen2", "s1", "s2", "sentinel1 and sentinel2", "sen1 and sen2", "s1 and s2"]:
+        raise ValueError("Invalid satellite, please choose between 'sentinel1/sen1/s1' or 'sentinel2/sen2/s1' or 'sentinel1 and sentinel2/sen1 and sen2/s1 and s2/both'.")
+    if satellite in ["sentinel1 and sentinel2", "sen1 and sen2", "s1 and s2", "both"]:
+        return "both"
     if satellite in ["sen1", "s1"]:
         return "sentinel1"
     if satellite in ["sen2", "s2"]:

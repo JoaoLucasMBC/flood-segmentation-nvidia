@@ -29,12 +29,11 @@ class Sentinel1(Sentinel):
             .filter(ee.Filter.eq('instrumentMode', 'IW')) \
             .mosaic()
 
-        # Loop through each smaller bounding box and download the image, naming it by its corresponding row and column
         row = 0
         for column_ in bbox_list:
             col = 0
             for row_ in column_:
-                output_filename = os.path.join(f"{output_folder}/tif", f'{filename}_{row}_{col}.tif')
+                output_filename = os.path.join(f"{output_folder}/sentinel1/tif", f'{filename}_{row}_{col}.tif')
                 col += 1
                 tile_geom = ee.Geometry.Rectangle(row_)
 
@@ -43,7 +42,7 @@ class Sentinel1(Sentinel):
                     geemap.ee_export_image(
                         sentinel_1,
                         filename=output_filename,
-                        scale=10,  # Adjust scale as needed
+                        scale=10,  
                         region=tile_geom,
                         file_per_band=False
                     )

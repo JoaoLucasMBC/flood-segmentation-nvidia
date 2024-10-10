@@ -35,6 +35,8 @@ def main():
         coordinate_error_handling(coords)
         if satellite == "sentinel1":
             coords = (coords[1], coords[0], coords[3], coords[2])
+        if satellite == "both":
+            coords_sen1 = (coords[1], coords[0], coords[3], coords[2])
 
         time_interval = ast.literal_eval(args.time_interval)
         time_interval_error_handling(time_interval)
@@ -47,19 +49,19 @@ def main():
         save_dir_error_handling(args.save_dir)
         # save_dir = os.path.join(os.getcwd(), "output", args.save_dir) --> change to users cwd?
         save_dir = f"./output/{args.save_dir}"
-        create_dir(save_dir)
+        create_dir(save_dir, satellite)
 
         filename_error_handling(args.filename)
         filename = args.filename
 
-        if satellite == "sentinel1":
+        if satellite == "sentinel1" or satellite == "both":
 
             sentinel1 = Sentinel1()
 
             if abs(abs(coords[0]) - abs(coords[2])) > step or abs(abs(coords[1]) - abs(coords[3])) > step:
                 list_coords = divide_big_area(coords, step)
             else:
-                list_coords = [coords]
+                list_coords = [[coords]]
 
             sentinel1.collect_image(list_coords, coords, time_interval, save_dir, filename)
 
@@ -69,7 +71,7 @@ def main():
 
             png_conversion(image_final_list, filenames, save_dir, resolution[0])
 
-        elif satellite == "sentinel2":
+        if satellite == "sentinel2" or satellite == "both":
             # Finish image collection here for sentinel 2
             pass
 

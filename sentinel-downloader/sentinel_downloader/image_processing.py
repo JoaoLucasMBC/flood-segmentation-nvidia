@@ -55,7 +55,7 @@ def normalize(vv_vh_list):
 
 
 def png_conversion(image_final_list, filenames, output_folder, crop_size):
-    png_folder = f"{output_folder}/png"
+    png_folder = f"{output_folder}/sentinel1"
 
     for i, image in enumerate(image_final_list):
         cropped_img = image[:crop_size, :crop_size]
@@ -64,4 +64,9 @@ def png_conversion(image_final_list, filenames, output_folder, crop_size):
 
         plt.imsave(output_path, cropped_img)
 
+    tif_folder = f"{output_folder}/sentinel1/tif"
+    for file in os.listdir(tif_folder):
+        file_path = os.path.join(tif_folder, file)
+        os.remove(file_path)
+    os.rmdir(tif_folder)
     
