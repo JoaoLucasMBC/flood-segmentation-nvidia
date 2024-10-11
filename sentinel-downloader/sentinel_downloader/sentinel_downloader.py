@@ -1,6 +1,7 @@
+from json_runner import JSONRunner
+from cli import CLI
 
-
-class SentinelDownloader:
+class SentinelDownloader():
     def __init__(self, mode="cli", config_file=None, cli_args=None):
         """
         Initialize SentinelDownloader.
@@ -25,3 +26,9 @@ class SentinelDownloader:
             self.runner = CLI(self.cli_args)
         else:
             raise ValueError("Mode must be either 'cli' or 'json'.")
+        
+    def run(self):
+        """
+        Run the SentinelDownloader.
+        """
+        self.runner.run()
