@@ -28,7 +28,7 @@ def main():
     filename = data["filename"] if "filename" in data else "file"
     evalscript = data["evalscript"] if "evalscript" in data else "rgb"
     cloud_removal = data["cloud_removal"] if "cloud_removal" in data else False
-
+    
     save_dir_created = False
 
     try:
@@ -51,8 +51,7 @@ def main():
         step = 0.0459937425 * resolution[0] / 512
 
         save_dir_error_handling(save_dir)
-        # save_dir = os.path.join(os.getcwd(), "output", args.save_dir) --> change to users cwd?
-        save_dir = f"./output/{save_dir}"
+        save_dir = os.path.join(os.getcwd(), "output", save_dir)
         create_dir(save_dir, satellite)
         save_dir_created = True
 

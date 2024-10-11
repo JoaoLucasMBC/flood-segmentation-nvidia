@@ -4,9 +4,9 @@ import sys
 
 def create_dir(save_dir, satellite):
         # create /output directory if it does not exist
-        if not os.path.isdir("./output"):
-            os.makedirs("./output")
-            os.chmod("./output", 0o777)
+        if not os.path.isdir(f"{os.getcwd()}/output"):
+            os.makedirs(f"{os.getcwd()}/output")
+            os.chmod(f"{os.getcwd()}/output", 0o777)
 
         # create directory inside output if it does not exist, if exists return error
         if os.path.exists(f"{save_dir}"):
