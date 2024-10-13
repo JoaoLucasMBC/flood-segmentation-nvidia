@@ -1,5 +1,5 @@
-from json_runner import JSONRunner
-from cli import CLI
+from .json_runner import JSONRunner
+from .cli import CLI
 
 class SentinelDownloader():
     def __init__(self, mode="cli", config_file=None, cli_args=None):

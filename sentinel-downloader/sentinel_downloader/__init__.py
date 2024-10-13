@@ -1,4 +1,9 @@
-from .sentinel1 import Sentinel1
-from .image_processing import normalize_band, process_image, normalize
-from .utils import divide_big_area
-from .error_handler import Sentinel1ErrorHandler
+# Classes that should be exposed
+from .sentinel_downloader import SentinelDownloader  
+
+# What will be available if users import *
+__all__ = [
+    "SentinelDownloader", 
+    "CLI",                 
+    "JSONRunner",          
+]

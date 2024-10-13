@@ -1,9 +1,9 @@
 from argparse import ArgumentParser
-from sentinel1 import Sentinel1
-from sentinel2 import Sentinel2
-from utils import divide_big_area, create_dir, load_evalscript
-from error_handler import *
-from image_processing import process_image, normalize, png_conversion
+from .sentinel1 import Sentinel1
+from .sentinel2 import Sentinel2
+from .utils import divide_big_area, create_dir, load_evalscript
+from .error_handler import *
+from .image_processing import process_image, normalize, png_conversion
 import ast
 from datetime import datetime
 import shutil

@@ -2,8 +2,8 @@ import ee
 import os
 import geemap
 from dotenv import load_dotenv
-from sentinel import Sentinel
-from utils import SuppressPrints
+from .sentinel import Sentinel
+from .utils import SuppressPrints
 
 class Sentinel1(Sentinel):
 
