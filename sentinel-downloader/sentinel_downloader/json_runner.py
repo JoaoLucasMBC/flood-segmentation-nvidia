@@ -59,7 +59,6 @@ class JSONRunner():
 
             save_dir_error_handling(save_dir)
             save_dir = os.path.join(os.getcwd(), "output", save_dir)
-            print(save_dir)
             create_dir(save_dir, satellite)
             save_dir_created = True
 
@@ -105,6 +104,6 @@ class JSONRunner():
                 shutil.rmtree(save_dir)
             print(e)
 
-
-runner = JSONRunner("sentinel_downloader/config.json")
-runner.run()
+if __name__ == "__main__":
+    runner = JSONRunner("config.json")
+    runner.run()
