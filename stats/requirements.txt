@@ -2,8 +2,8 @@ numpy
 Pillow
 matplotlib
 onnxruntime
-ipykernel
 rasterio
 shapely
+ipykernel
 geopandas
 scipy
