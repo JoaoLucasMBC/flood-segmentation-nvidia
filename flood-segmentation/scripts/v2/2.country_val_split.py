@@ -1,12 +1,12 @@
 import json
 import os
 import shutil
-import subprocess
 from dotenv import load_dotenv
 
 load_dotenv()
 
 countries = {}
+local_data_dir = os.environ['LOCAL_DATA_DIR']
 file_list = os.listdir(f"{local_data_dir}/v1/ProcessedS1/")
 
 for file in file_list:
