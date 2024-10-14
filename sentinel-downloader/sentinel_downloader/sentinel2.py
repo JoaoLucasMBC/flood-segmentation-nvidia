@@ -3,9 +3,9 @@ from PIL import Image
 from dotenv import load_dotenv
 from datetime import datetime, timedelta
 
-from .sentinel import Sentinel
-from .image_processing import scale_and_clip_image, count_obstructed_pixels
-from .utils import load_evalscript
+from sentinel_downloader.sentinel import Sentinel
+from sentinel_downloader.image_processing import scale_and_clip_image, count_obstructed_pixels
+from sentinel_downloader.utils import load_evalscript
 from sentinelhub import DataCollection, MimeType, SentinelHubRequest, SHConfig, BBox, CRS
 
 class Sentinel2(Sentinel):

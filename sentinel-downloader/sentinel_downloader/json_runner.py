@@ -1,8 +1,8 @@
-from .sentinel1 import Sentinel1
-from .sentinel2 import Sentinel2
-from .utils import create_dir, divide_big_area, load_evalscript
-from .error_handler import *
-from .image_processing import process_image, normalize, png_conversion
+from sentinel_downloader.sentinel1 import Sentinel1
+from sentinel_downloader.sentinel2 import Sentinel2
+from sentinel_downloader.utils import create_dir, divide_big_area, load_evalscript
+from sentinel_downloader.error_handler import *
+from sentinel_downloader.image_processing import process_image, normalize, png_conversion
 import ast
 from datetime import datetime
 import shutil
@@ -59,6 +59,7 @@ class JSONRunner():
 
             save_dir_error_handling(save_dir)
             save_dir = os.path.join(os.getcwd(), "output", save_dir)
+            print(save_dir)
             create_dir(save_dir, satellite)
             save_dir_created = True
 
@@ -104,8 +105,6 @@ class JSONRunner():
                 shutil.rmtree(save_dir)
             print(e)
 
-    
 
-if __name__ == "__main__":
-    runner = JSONRunner("config.json")
-    runner.run()
+runner = JSONRunner("sentinel_downloader/config.json")
+runner.run()
