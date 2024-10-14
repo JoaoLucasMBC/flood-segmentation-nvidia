@@ -2,6 +2,19 @@
 
 /flood-segmentation/flood_data/*/
 /flood-segmentation/tao_project
+*/.ipynb_checkpoints/
+*/.vscode/
+*/.idea/
+*/.git/
+*/.gitignore
+*/.DS_Store
+
+output/
+sentinel-downloader/*.json
+
+*/dist/
+/build/
+*.egg-info/
 *.onnx
 /env
 

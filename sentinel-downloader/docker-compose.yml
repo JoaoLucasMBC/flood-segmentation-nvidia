@@ -1,0 +1,11 @@
+version: "3.8"
+
+services:
+  sentinel-downloader:
+    image: sentinel-downloader  
+    env_file:
+      - ../.env                 
+    volumes:
+      - ./config.json:/config.json   
+      - ./output:/output             
+      - ./ee.json:/ee.json           

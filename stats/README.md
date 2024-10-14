@@ -1,4 +1,30 @@
-# **Steps to Run the Statistics Testing**
+# **Steps to Run the Model Inference Docker Container**
+
+1. Build the Docker container with the following command:
+
+    ```sh
+    docker build -t open-flood-model .
+    ```
+
+2. Once the container is built, run the following command to start the model inference, making sure to correctly map the necessary volumes:
+
+    ```sh
+    docker run \
+    -v /path/to/your/model.onnx:/model/model.onnx \
+    -v /path/to/input_folder:/input \
+    -v /path/to/output_folder:/output \
+    open-flood-model
+    ```
+
+    - `/model`: This volume must contain your model in `.onnx` format.
+    - `/input`: This volume should contain the folder with your input images to be processed by the model.
+    - `/output`: This volume will store the prediction results.
+
+Make sure to replace `/path/to/your/model.onnx`, `/path/to/input_folder`, and `/path/to/output_folder` with the correct paths on your local system.
+
+**Now, you can follow the steps to process the images and generate your predictions!**
+
+# **Steps to Run the Statistics Testing Notebook**
 
 1. Make sure the appropriate data is inserted in the `/data` folder. You will always need 4 folders:  
     1. Images with flooding to be predicted by the model;
