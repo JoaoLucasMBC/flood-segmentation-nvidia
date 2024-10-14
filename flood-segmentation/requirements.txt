@@ -1,6 +1,4 @@
-numpy
-rasterio
-pillow
+opencv-python
+pandas
 python-dotenv
 nvidia-tao
-matplotlib

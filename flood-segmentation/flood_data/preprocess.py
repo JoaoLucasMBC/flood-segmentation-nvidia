@@ -44,8 +44,8 @@ def preprocess_image(image_path, output_dir):
 
 def main():
     # Preprocess the images in the 'data' directory
-    data_dir = "./S1Hand"
-    output_dir = "./ProcessedS1"
+    data_dir = os.path.join(".", f"v{os.environ['VERSION']}", "S1Hand")
+    output_dir = os.path.join(".", f"v{os.environ['VERSION']}", "ProcessedS1")
 
     os.makedirs(output_dir, exist_ok=True)
 

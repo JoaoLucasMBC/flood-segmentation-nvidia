@@ -10,17 +10,17 @@ drive_map = {
     "Mounts": [
             # Mapping the data directory
             {
-                "source": os.environ["LOCAL_PROJECT_DIR"],
+                "source": os.path.join(os.environ["LOCAL_PROJECT_DIR"], f"v{os.environ['VERSION']}"),
                 "destination": "/workspace/tao-experiments"
             },
             # Mapping the specs directory.
             {
-                "source": os.environ["LOCAL_SPECS_DIR"],
+                "source": os.path.join(os.environ["LOCAL_SPECS_DIR"], f"v{os.environ['VERSION']}"),
                 "destination": os.environ["TAO_SPECS_DIR"]
             },
             # Mapping the data directory.
             {
-                "source": os.environ["LOCAL_DATA_DIR"],
+                "source": os.path.join(os.environ["LOCAL_DATA_DIR"], f"v{os.environ['VERSION']}"),
                 "destination": os.environ["TAO_DATA_DIR"]
             },
         ],
