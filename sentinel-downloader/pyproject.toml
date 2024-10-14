@@ -1,0 +1,139 @@
+[build-system]
+requires = ["setuptools>=42", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "sentinel_downloader"
+version = "0.1.1"
+description = "A Python package for downloading and processing Sentinel satellite images."
+authors = [
+    { name = "Pedro Vaz de Moraes Pertusi", email = "pedrovazpertusi@gmail.com" },
+    { name = "João Lucas de Moraes Cadorniga", email = "joaolucasmbcadorniga@gmail.com" },
+    { name = "Eduardo Mendes Vaz", email = "emendesvaz@gmail.com" },
+    { name = "Alexandre Magno Maciel dos Santos", email = "alemagno03@gmail.com" }
+]
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.8"
+dependencies = [
+    "aenum",
+    "affine",
+    "attrs",
+    "bqplot",
+    "branca",
+    "cachetools",
+    "certifi",
+    "charset-normalizer",
+    "click",
+    "click-plugins",
+    "cligj",
+    "colour",  
+    "comm",
+    "contourpy",
+    "cycler",
+    "dataclasses-json",
+    "decorator",
+    "earthengine-api",
+    "eerepr",  
+    "exceptiongroup",
+    "executing",
+    "folium",
+    "fonttools",
+    "future",  
+    "geemap",
+    "geocoder",
+    "google-api-core",
+    "google-api-python-client",
+    "google-auth",
+    "google-auth-httplib2",
+    "google-cloud-core",
+    "google-cloud-storage",
+    "google-crc32c",
+    "google-resumable-media",
+    "googleapis-common-protos",
+    "httplib2",
+    "idna",
+    "ipyevents",
+    "ipyfilechooser",
+    "ipyleaflet",
+    "ipython",
+    "ipytree",
+    "ipywidgets",
+    "jedi",
+    "Jinja2",
+    "jupyter-leaflet",
+    "jupyterlab_widgets",
+    "kiwisolver",
+    "MarkupSafe",
+    "marshmallow",
+    "matplotlib",
+    "matplotlib-inline",
+    "mypy-extensions",
+    "numpy",
+    "oauthlib",
+    "packaging",
+    "pandas",
+    "parso",
+    "pexpect",
+    "pillow",
+    "plotly",
+    "prompt_toolkit",
+    "proto-plus",
+    "protobuf",
+    "ptyprocess",
+    "pure_eval",
+    "pyasn1",
+    "pyasn1_modules",
+    "Pygments",
+    "pyparsing",
+    "pyperclip",
+    "pyproj",
+    "pyshp",
+    "python-box",
+    "python-dateutil",
+    "python-dotenv",
+    "pytz",
+    "rasterio",
+    "ratelim",
+    "requests",
+    "requests-oauthlib",
+    "rsa",
+    "scooby",
+    "sentinelhub",
+    "shapely",
+    "six",
+    "stack-data",
+    "tenacity",
+    "tifffile",
+    "tomli",
+    "tomli_w",
+    "tqdm",
+    "traitlets",
+    "traittypes",
+    "typing-inspect",
+    "typing_extensions",
+    "tzdata",
+    "uritemplate",
+    "urllib3",
+    "utm",
+    "wcwidth",
+    "widgetsnbextension",
+    "xyzservices"
+]
+
+# URLs for more info
+[project.urls]
+"Homepage" = "https://github.com/JoaoLucasMBC/open-flood.git"
+"Repository" = "https://github.com/JoaoLucasMBC/open-flood.git"
+
+# Optional, defines CLI entry points
+[project.scripts]
+sentinel-cli = "sentinel_downloader.cli:CLI"
+sentinel-json = "sentinel_downloader.json_runner:JSONRunner"
+
+[tool.setuptools.packages.find]
+include = ["sentinel_downloader"]
+exclude = ["output"]
+
+[tool.setuptools]
+include-package-data = true
