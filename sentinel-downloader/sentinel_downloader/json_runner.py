@@ -46,7 +46,8 @@ class JSONRunner():
 
             coords = ast.literal_eval(coords)
             coordinate_error_handling(coords)
-            coords = (coords[1], coords[0], coords[3], coords[2])
+            # nw -> se
+            coords = (coords[3], coords[2], coords[1], coords[0])
             
 
             time_interval = ast.literal_eval(time_interval)

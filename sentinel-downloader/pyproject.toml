@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "sentinel_downloader"
-version = "0.1.5"
+version = "0.1.6"
 description = "A Python package for downloading and processing Sentinel satellite images."
 authors = [
     { name = "Pedro Vaz de Moraes Pertusi", email = "pedrovazpertusi@gmail.com" },
