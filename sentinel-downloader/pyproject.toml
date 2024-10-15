@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "sentinel_downloader"
-version = "0.1.1"
+version = "0.1.5"
 description = "A Python package for downloading and processing Sentinel satellite images."
 authors = [
     { name = "Pedro Vaz de Moraes Pertusi", email = "pedrovazpertusi@gmail.com" },
@@ -121,15 +121,12 @@ dependencies = [
     "xyzservices"
 ]
 
-# URLs for more info
 [project.urls]
 "Homepage" = "https://github.com/JoaoLucasMBC/open-flood.git"
 "Repository" = "https://github.com/JoaoLucasMBC/open-flood.git"
 
-# Optional, defines CLI entry points
 [project.scripts]
-sentinel-cli = "sentinel_downloader.cli:CLI"
-sentinel-json = "sentinel_downloader.json_runner:JSONRunner"
+sentinel-cli = "sentinel_downloader.cli:main"
 
 [tool.setuptools.packages.find]
 include = ["sentinel_downloader"]

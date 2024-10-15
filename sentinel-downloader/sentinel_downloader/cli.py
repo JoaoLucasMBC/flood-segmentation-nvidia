@@ -7,9 +7,10 @@ from sentinel_downloader.image_processing import process_image, normalize, png_c
 import ast
 from datetime import datetime
 import shutil
+import sys
 
 class CLI():
-    def __init__(self, cli_args):
+    def __init__(self, cli_args=None):
         self.cli_args = cli_args
         self.args = self.parse_args()
 
@@ -96,6 +97,9 @@ class CLI():
                 shutil.rmtree(save_dir)
             print(e)
 
+def main():
+    cli = CLI()  
+    cli.run()    
+
 if __name__ == "__main__":
-    cli = CLI(sys.argv[1:])
-    cli.run()
+    main()
