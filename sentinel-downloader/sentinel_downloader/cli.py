@@ -8,11 +8,15 @@ import ast
 from datetime import datetime
 import shutil
 import sys
+import signal
 
 class CLI():
     def __init__(self, cli_args=None):
         self.cli_args = cli_args
         self.args = self.parse_args()
+        self.save_dir_created = False
+        self.save_dir = None
+        signal.signal(signal.SIGINT, self.cleanup_on_interrupt)
 
     def parse_args(self):
         parser = ArgumentParser(description="Sentinel-Downloader API")
@@ -31,9 +35,16 @@ class CLI():
         parser.add_argument("-cr", "--cloud-removal", type=bool, required=False, default=False)
 
         return parser.parse_args(self.cli_args)
+    
+    def cleanup_on_interrupt(self, signum, frame):
+        """Handle SIGINT"""
+        if self.save_dir_created and os.path.exists(self.save_dir):
+            shutil.rmtree(self.save_dir)
+            print(f"\nDirectory {self.save_dir} has been removed due to interruption.")
+        print("Process interrupted.")
+        exit(0)
 
     def run(self):
-        save_dir_created = False
 
         try:
             # Error handling
@@ -52,9 +63,9 @@ class CLI():
             step = 0.0459937425 * self.args.resolution / 512
 
             save_dir_error_handling(self.args.save_dir)
-            save_dir = f"./output/{self.args.save_dir}"
-            create_dir(save_dir, satellite)
-            save_dir_created = True
+            self.save_dir = f"./output/{self.args.save_dir}"
+            create_dir(self.save_dir, satellite)
+            self.save_dir_created = True
 
             filename_error_handling(self.args.filename)
             filename = self.args.filename
@@ -75,9 +86,9 @@ class CLI():
                     list_coords = [[coords]]
 
                 if cloud_removal:
-                    sentinel2.collect_best_image(list_coords, evalscript, time_interval, resolution, save_dir, filename)
+                    sentinel2.collect_best_image(list_coords, evalscript, time_interval, resolution, self.save_dir, filename)
                 else:
-                    sentinel2.collect_image(list_coords, evalscript, time_interval, resolution, save_dir, filename)
+                    sentinel2.collect_image(list_coords, evalscript, time_interval, resolution, self.save_dir, filename)
 
             if satellite == "sentinel1" or satellite == "both":
                 sentinel1 = Sentinel1()
@@ -87,15 +98,15 @@ class CLI():
                 else:
                     list_coords = [[coords]]
 
-                sentinel1.collect_image(list_coords, coords, time_interval, save_dir, filename)
+                sentinel1.collect_image(list_coords, coords, time_interval, self.save_dir, filename)
 
-                vv_vh_list, filenames = process_image(save_dir)
+                vv_vh_list, filenames = process_image(self.save_dir)
                 image_final_list = normalize(vv_vh_list)
-                png_conversion(image_final_list, filenames, save_dir, resolution[0])
+                png_conversion(image_final_list, filenames, self.save_dir, resolution[0])
 
         except Exception as e:
-            if save_dir_created:
-                shutil.rmtree(save_dir)
+            if self.save_dir_created:
+                shutil.rmtree(self.save_dir)
             print(e)
 
 def main():
