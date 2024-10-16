@@ -1,4 +1,5 @@
 opencv-python
 pandas
+onnxruntime
 python-dotenv
 nvidia-tao

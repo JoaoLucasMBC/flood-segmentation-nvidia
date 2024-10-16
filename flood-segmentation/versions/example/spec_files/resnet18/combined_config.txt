@@ -50,14 +50,14 @@ model_config {
 
 training_config {
   batch_size: 1
-  epochs: 10
+  epochs: 500
   log_summary_steps: 10
   checkpoint_interval: 10
   loss: "cross_dice_sum"
   learning_rate: 0.0001
   regularizer {
-    type: L1
-    weight: 2e-4
+    type: L2
+    weight: 2e-5
   }
   optimizer {
     adam {
@@ -70,3 +70,4 @@ training_config {
 
 ### NEW LINE
 
+/home/user/open-flood/flood-segmentation/tao_project/v2/data

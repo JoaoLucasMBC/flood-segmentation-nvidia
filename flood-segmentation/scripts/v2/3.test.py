@@ -2,7 +2,9 @@ import os
 import shutil
 import subprocess
 from dotenv import load_dotenv
-load_dotenv()
+from pathlib import Path
+
+load_dotenv(dotenv_path=Path('../../config/.env'))
 
 local_data_dir = os.environ['LOCAL_DATA_DIR']
 local_project_dir = os.environ['LOCAL_PROJECT_DIR']
@@ -12,7 +14,7 @@ tao_experiment_dir = os.environ['TAO_EXPERIMENT_DIR']
 nvidia_api_key = os.environ['NVIDIA_API_KEY']
 
 def set_country_spec_file(country:str):
-    path = f'{local_specs_dir}/v{os.environ["VERSION"]}/resnet18/combined_config.txt'
+    path = f'{local_specs_dir}/resnet18/combined_config.txt'
     with open(path, 'r') as file:
         lines = file.readlines()
 
@@ -36,8 +38,8 @@ for test_country in ['Bolivia', 'Ghana', 'India', 'Mekong', 'Nigeria', 'Paraguay
             '-k', nvidia_api_key
         ]
 
-    os.makedirs(f"{local_data_dir}/v{os.environ['VERSION']}/results", exist_ok=True)
-    result_file = f"{local_data_dir}/v{os.environ['VERSION']}/results/result_{test_country.lower()}.txt"
+    os.makedirs(f"{local_data_dir}/results", exist_ok=True)
+    result_file = f"{local_data_dir}/results/result_{test_country.lower()}.txt"
 
     print(f"testing: {test_country}")
         

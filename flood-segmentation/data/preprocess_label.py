@@ -3,6 +3,9 @@ import numpy as np
 import rasterio
 from PIL import Image
 
+from dotenv import load_dotenv
+from pathlib import Path
+
 
 def preprocess_image(image_path, output_dir):
     """
@@ -26,9 +29,11 @@ def preprocess_image(image_path, output_dir):
 
 
 def main():
+    load_dotenv(dotenv_path=Path('../config/.env'))
+
     # Preprocess the images in the 'data' directory
-    data_dir = os.path.join(".", f"v{os.environ['VERSION']}", "LabelHand")
-    output_dir = (".", f"v{os.environ['VERSION']}", "ProcessedLabelHand")
+    data_dir = "./LabelHand"
+    output_dir = (os.environ["LOCAL_DATA_DIR"])
 
     os.makedirs(output_dir, exist_ok=True)
 
