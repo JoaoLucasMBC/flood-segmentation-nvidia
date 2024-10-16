@@ -1,4 +1,3 @@
-from argparse import ArgumentParser
 from sentinel_downloader.sentinel1 import Sentinel1
 from sentinel_downloader.sentinel2 import Sentinel2
 from sentinel_downloader.utils import divide_big_area, create_dir, load_evalscript
@@ -7,8 +6,9 @@ from sentinel_downloader.image_processing import process_image, normalize, png_c
 import ast
 from datetime import datetime
 import shutil
-import sys
 import signal
+from argparse import ArgumentParser
+import os
 
 class CLI():
     def __init__(self, cli_args=None):
@@ -52,8 +52,8 @@ class CLI():
 
             coords = ast.literal_eval(self.args.coords)
             coordinate_error_handling(coords)
-            # nw -> se
-            coords = (coords[3], coords[2], coords[1], coords[0])
+            final_cords = coords
+            coords = (coords[1], coords[2], coords[3], coords[0])
 
             time_interval = ast.literal_eval(self.args.time_interval)
             time_interval_error_handling(time_interval)
@@ -81,7 +81,8 @@ class CLI():
                 sentinel2 = Sentinel2()
 
                 if abs(abs(coords[0]) - abs(coords[2])) > step or abs(abs(coords[1]) - abs(coords[3])) > step:
-                    list_coords = divide_big_area(coords, step)
+                    list_coords, final_cords = divide_big_area(coords, step)
+                    list_coords = list(reversed(list_coords))
                 else:
                     list_coords = [[coords]]
 
@@ -94,7 +95,8 @@ class CLI():
                 sentinel1 = Sentinel1()
 
                 if abs(abs(coords[0]) - abs(coords[2])) > step or abs(abs(coords[1]) - abs(coords[3])) > step:
-                    list_coords = divide_big_area(coords, step)
+                    list_coords, final_cords = divide_big_area(coords, step)
+                    list_coords = list(reversed(list_coords))
                 else:
                     list_coords = [[coords]]
 
@@ -103,6 +105,16 @@ class CLI():
                 vv_vh_list, filenames = process_image(self.save_dir)
                 image_final_list = normalize(vv_vh_list)
                 png_conversion(image_final_list, filenames, self.save_dir, resolution[0])
+                
+            with open(os.path.join(self.save_dir, "info.txt"), "w") as f:
+                f.write(f"Satellite: {satellite}\n")
+                f.write(f"Coordinates: {final_cords}\n")
+                f.write(f"Time Interval: {time_interval}\n")
+                f.write(f"Resolution: {resolution}\n")
+                f.write(f"Save Directory: {self.save_dir}\n")
+                f.write(f"Filename: {filename}\n")
+                f.write(f"Evalscript: {evalscript}\n")
+                f.write(f"Cloud Removal: {cloud_removal}\n")
 
         except Exception as e:
             if self.save_dir_created:

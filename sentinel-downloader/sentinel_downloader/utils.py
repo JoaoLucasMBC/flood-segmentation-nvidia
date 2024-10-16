@@ -25,23 +25,34 @@ def create_dir(save_dir, satellite):
             os.makedirs(f"{save_dir}/sentinel1/tif")
             os.makedirs(f"{save_dir}/sentinel2")
     
+import math
+
 def divide_big_area(coords, step):
-        # Create list to hold smaller bounding boxes
-        bbox_list = []
+    bbox_list = []
+    min_lon, min_lat, max_lon, max_lat = coords
 
-        # Calculate the number of tiles (smaller bounding boxes)
-        number_boxes_lat = math.ceil(abs(coords[0] - coords[2]) / step) # rows
-        number_boxes_lon = math.ceil(abs(coords[1] - coords[3]) / step) # columns
+    number_boxes_lat = math.ceil(abs(max_lat - min_lat) / step)  # rows (latitudinal direction)
+    number_boxes_lon = math.ceil(abs(max_lon - min_lon) / step)  # columns (longitudinal direction)
 
-        # Create smaller bounding boxes
-        for i in range(number_boxes_lat):
-            row_bbox = []
-            for j in range(number_boxes_lon):
-                bbox = (coords[0] + i * step, coords[1] + j * step, coords[0] + (i + 1) * step, coords[1] + (j + 1) * step)
-                row_bbox.append(bbox)
-            bbox_list.append(row_bbox)
+    for i in range(number_boxes_lat):
+        row_bboxs = []
+        for j in range(number_boxes_lon):
+            tile_min_lat = min_lat + i * step
+            tile_max_lat = min_lat + (i + 1) * step
+            tile_min_lon = min_lon + j * step
+            tile_max_lon = min_lon + (j + 1) * step
 
-        return bbox_list
+            bbox = (tile_min_lon, tile_min_lat, tile_max_lon, tile_max_lat)
+            row_bboxs.append(bbox)
+
+        bbox_list.append(row_bboxs)
+
+    new_expanded_bbox_cords = (min_lat + number_boxes_lat * step,
+                               min_lon,
+                                min_lat,
+                                min_lon + number_boxes_lon * step)
+
+    return bbox_list, new_expanded_bbox_cords
 
 
 def load_evalscript(script_name):
