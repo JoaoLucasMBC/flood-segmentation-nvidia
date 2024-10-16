@@ -1,0 +1,73 @@
+dataset_config {
+  dataset: "custom"
+  augment: true
+  augmentation_config {
+    spatial_augmentation {
+      hflip_probability : 0.5
+      vflip_probability : 0.5
+      crop_and_resize_prob : 0.5
+    }
+  }
+  input_image_type: "color"
+  train_images_path:"/workspace/tao-experiments/data/images/train"
+  train_masks_path:"/workspace/tao-experiments/data/masks/train"
+
+  val_images_path:"/workspace/tao-experiments/data/images/val"
+  val_masks_path:"/workspace/tao-experiments/data/masks/val"
+  
+  test_images_path:"/workspace/tao-experiments/data/images/val"
+  
+  data_class_config {
+    target_classes {
+      name: "notflood"
+      mapping_class: "notflood"
+      label_id: 0
+    }
+    target_classes {
+      name: "flood"
+      mapping_class: "flood"
+      label_id: 255
+    }
+  }
+}
+
+#### LEAVE LINE
+
+model_config {
+  model_input_width: 512
+  model_input_height: 512
+  model_input_channels: 3
+  num_layers: 18
+  all_projections: true
+  arch: "resnet"
+  use_batch_norm: true
+  training_precision {
+    backend_floatx: FLOAT32
+  }
+}
+
+### NEW LINE
+
+training_config {
+  batch_size: 1
+  epochs: 500
+  log_summary_steps: 10
+  checkpoint_interval: 10
+  loss: "cross_dice_sum"
+  learning_rate: 0.0001
+  regularizer {
+    type: L2
+    weight: 2e-5
+  }
+  optimizer {
+    adam {
+      epsilon: 9.99999993923e-09
+      beta1: 0.899999976158
+      beta2: 0.999000012875
+    }
+  }
+}
+
+### NEW LINE
+
+/home/user/open-flood/flood-segmentation/tao_project/v2/data
