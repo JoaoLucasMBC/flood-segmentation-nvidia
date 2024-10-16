@@ -1,4 +1,3 @@
-import sys
 import os
 from datetime import datetime
 
@@ -50,9 +49,9 @@ def resolution_error_handling(resolution: int, satellite: str):
         raise ValueError("Invalid resolution, please input an integer.")
     if resolution <= 0:
         raise ValueError("Invalid resolution, it must be greater than 0.")
-    if satellite == "sentinel1" or satellite == "both" and resolution not in [128,256,512]:
+    if (satellite == "sentinel1" or satellite == "both") and resolution not in [128,256,512]:
             raise ValueError("Invalid resolution, please choose between 128, 256, or 512 for Sentinel 1.")
-    if satellite == "sentinel2" and resolution not in [128,256,512,1024,2048]:
+    if (satellite == "sentinel2" or satellite == "both") and resolution not in [128,256,512,1024,2048]:
             raise ValueError("Invalid resolution, please choose between 128, 256, 512, 1024, or 2048 for Sentinel 2.")
     
 def save_dir_error_handling(save_dir: str):

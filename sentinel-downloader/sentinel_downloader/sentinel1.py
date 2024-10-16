@@ -1,9 +1,10 @@
+from sentinel_downloader.sentinel import Sentinel
+from sentinel_downloader.utils import SuppressPrints
 import ee
 import os
 import geemap
 from dotenv import load_dotenv
-from sentinel_downloader.sentinel import Sentinel
-from sentinel_downloader.utils import SuppressPrints
+from tqdm import tqdm
 
 class Sentinel1(Sentinel):
 
@@ -31,27 +32,28 @@ class Sentinel1(Sentinel):
             .mosaic()
 
         try:
-            row = 0
-            for column_ in bbox_list:
-                col = 0
-                for row_ in column_:
-                    output_filename = os.path.join(f"{output_folder}/sentinel1/tif", f'{filename}_{row}_{col}.tif')
-                    col += 1
-                    tile_geom = ee.Geometry.Rectangle(row_)
+            with tqdm(total=len(bbox_list) * len(bbox_list[0]), desc="Downloading Sentinel1 Tiles", dynamic_ncols=True) as pbar:
+                row_i = 0
+                for column_ in bbox_list:
+                    col_j = 0
+                    for row_ in column_:
+                        output_filename = os.path.join(f"{output_folder}/sentinel1/tif", f'{filename}_{row_i}_{col_j}.tif')
+                        col_j += 1
+                        tile_geom = ee.Geometry.Rectangle(row_)
+                        with SuppressPrints():
+                            geemap.ee_export_image(
+                                sentinel_1,
+                                filename=output_filename,
+                                scale=10,  
+                                region=tile_geom,
+                                file_per_band=False
+                            )
 
-                    
-                    with SuppressPrints():
-                        geemap.ee_export_image(
-                            sentinel_1,
-                            filename=output_filename,
-                            scale=10,  
-                            region=tile_geom,
-                            file_per_band=False
-                        )
-
-                    if not os.path.exists(output_filename):
-                        raise ValueError(f"Error downloading tile {row}, {col}: {e}")
+                        if not os.path.exists(output_filename):
+                            raise ValueError(f"Error downloading tile {row_i}, {col_j}: {e}")
                         
-                row += 1
+                        pbar.update(1)
+                            
+                    row_i += 1
         except Exception as e:
             raise ValueError(f"Error downloading images from Sentinel 1, problems could include no available data for the given coordinates or time interval.")
