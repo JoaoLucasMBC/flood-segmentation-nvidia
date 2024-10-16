@@ -3,8 +3,9 @@ import cv2
 import json
 import numpy as np
 from dotenv import load_dotenv
+from pathlib import Path
 
-load_dotenv()
+load_dotenv(dotenv_path=Path('../../config/.env'))
 
 local_data_dir = os.environ['LOCAL_DATA_DIR']
 
@@ -14,7 +15,7 @@ metrics = ['Recall', 'Precision', 'F1 score', 'Mean IOU']
 p = {}
 
 for country in countries:
-    path = f"{local_data_dir}/v{os.environ['VERSION']}/results/result_{country.lower()}.txt"
+    path = f"{local_data_dir}/results/result_{country.lower()}.txt"
 
     try:
         with open(path, 'r') as file:
@@ -37,8 +38,8 @@ for country in countries:
 
     p[country] = result_dict
 
-os.makedirs(f"{local_data_dir}/v{os.environ['VERSION']}/results", exist_ok=True)
-result_file = f"{local_data_dir}/v{os.environ['VERSION']}/results/country_metrics.json"
+os.makedirs(f"{local_data_dir}/results", exist_ok=True)
+result_file = f"{local_data_dir}/results/country_metrics.json"
 
 with open(result_file, 'w') as output_file:
     json.dump(p, output_file, indent=2)     

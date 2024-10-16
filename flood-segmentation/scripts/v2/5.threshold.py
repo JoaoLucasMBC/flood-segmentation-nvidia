@@ -2,19 +2,20 @@ import os
 import cv2
 import json
 import numpy as np
-
 from dotenv import load_dotenv
-load_dotenv()
+from pathlib import Path
+
+load_dotenv(dotenv_path=Path('../../config/.env'))
 
 local_data_dir = os.environ['LOCAL_DATA_DIR']
 
 countries = ['Bolivia', 'Ghana', 'India', 'Mekong', 'Nigeria', 'Paraguay', 'USA', 'Pakistan', 'Spain', 'Sri-Lanka', 'Somalia']
-threshold = 0.2
+threshold = 0.2 
 
 p = {}
 for country in countries:
 
-    file_path = f"{local_data_dir}/v2/masks/val/{country}"
+    file_path = f"{local_data_dir}/masks/val/{country}"
 
     if not os.path.exists(file_path):
         print(f"Not Found: {file_path}")
@@ -57,8 +58,8 @@ for country in countries:
         p[country] = None
         print(f"Nenhuma máscara válida encontrada para {country}")
 
-os.makedirs(f"{local_data_dir}/v{os.environ['VERSION']}/results", exist_ok=True)
-result_file = f"{local_data_dir}/v{os.environ['VERSION']}/results/mask_distribution.json"
+os.makedirs(f"{local_data_dir}/results", exist_ok=True)
+result_file = f"{local_data_dir}/results/mask_distribution.json"
 
 with open(result_file, 'w') as output_file:
     json.dump(p, output_file, indent=2)
