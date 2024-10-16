@@ -1,7 +1,11 @@
 .env
 
-/flood-segmentation/flood_data/*/
-/flood-segmentation/tao_project
+/flood-segmentation/data/*/
+/flood-segmentation/versions/**
+!/flood-segmentation/versions/example
+!/flood-segmentation/versions/example/**
+
+
 */.ipynb_checkpoints/
 */.vscode/
 */.idea/
@@ -35,4 +39,4 @@ __pycache__/
 !/stats/data/output_canoas
 !/stats/data/output_canoas/**
 !/stats/data/output_canoas_no_flood
-!/stats/data/output_canoas_no_flood/**
+!/stats/data/output_canoas_no_flood/**/

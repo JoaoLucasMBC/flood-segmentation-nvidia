@@ -1,3 +1,5 @@
+python ../config/configure_env.py
+source ../config/.env
 python ../../config/create_mount.py
 tao model unet export -m $TAO_EXPERIMENT_DIR/resnet18/USA/weights/model.tlt \
                  -e $TAO_SPECS_DIR/resnet18/combined_config.txt \
