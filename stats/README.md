@@ -48,6 +48,10 @@ The notebook contain an example of the usage of a map from [World Pop](https://h
 
 The model used for segmentation in this case is exported and loaded as a `onnx`. Make sure to place your model file in the root `/stats` and insert the appropriate path in the notebook.
 
-5. Install all dependencies from `requirements.txt`
+5. Install all dependencies from `requirements.txt` (if you want to run it locally)
 
 **Now, you can follow the instructions in the `model_testing.ipynb` notebook and create your analysis!**
+
+6. Build and Run the docker container for a configured Jupyter notebook
+
+If you don't want to install all dependencies, you can simply run the docker container and the Jupyter Lab URL to run the testing. The entire `/stats` folder will be a volume inside of the container.
