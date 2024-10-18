@@ -75,12 +75,44 @@ Sentinel Downloader improves upon two existing Sentinel Satellite Imagery collec
 and therefore you will need to obtain the credentials needed to make requests using these APIs to use it.
 
 ### Sentinel 1 - Earth Engine
-If you only want to collect Sentinel 1 imagery, you only need to follow the steps described in this section.
+If you want to collect Sentinel 1 imagery, you will need to follow the steps described in this section.
 
--- TODO: ee credentials
+1. Create a Google Cloud Project:
+   - Go to Google Cloud Console
+   - Create a new Project or select an existing one
+  
+2. Enable the Earth Engine API:
+   - Inside you project, go to the <b>API & Services Dashboard</b>
+   - Go to <b>Enable APIs and Services</b>
+   - Search and enable <b>Earth Engine API</b>
+
+3. Create a Service Account:
+   - Navigate to <b>IAM & Admin > Service Accounts</b>
+   - Click <b>Create Service Account</b>
+   - Provide a name and description for the service account and create it
+  
+4. Assign Roles to Service Account:
+   - Assign the role <b>Earth Engine Resource Writer</b>
+   - Click <b>Continue</b> and <b>Done</b>
+     
+5. Generate the Service Account Key (Credentials JSON):
+   - In the Service Accounts list, find the account you just created.
+   - Click the three dots under <b>Actions</b> and select <b>Manage Keys</b>
+   - Click <b>Add Key</b> and choose <b>Create new key</b>
+   - Select <b>JSON</b> as the key type
+   - This will download the credentials JSON file to your computer
+    
+6. Place the credential JSON File in Your Workspace:
+   - Save the downloaded JSON file in the workspace you'll use the package 
+
+7. Create or edit your .env file
+   - Add a field named <b>KEY_FILE</b> to the .env with the path to your credential JSON, example:
+     ```
+      KEY_FILE=/path/to_your/credentials.json
+     ```
 
 ### Sentinel 2 - SentinelHub
-If you only want to collect Sentinel 1 imagery, you only need to follow the steps described in this section.
+If you want to collect Sentinel 1 imagery, you will need to follow the steps described in this section.
 
 -- TODO: sentinelhub credentials
 
