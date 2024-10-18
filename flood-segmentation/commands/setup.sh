@@ -1,6 +1,8 @@
 # Install requirements
 pip install -r ../requirements.txt
 
+python ../config/configure_env.py
+
 # Load the .env file
 source ../config/.env
 

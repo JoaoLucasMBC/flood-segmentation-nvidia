@@ -2,32 +2,32 @@ import os
 import shutil
 import subprocess
 from dotenv import load_dotenv
+from pathlib import Path
 
-load_dotenv()
+load_dotenv(dotenv_path=Path('../../config/.env'))
 
 countries = ['Bolivia', 'Ghana', 'India', 'Mekong', 'Nigeria', 'Paraguay', 'USA', 'Pakistan', 'Spain', 'Sri-Lanka', 'Somalia']
 
+data_dir = os.environ['DATA_DIR']
 local_data_dir = os.environ['LOCAL_DATA_DIR']
 local_project_dir = os.environ['LOCAL_PROJECT_DIR']
 tao_specs_dir = os.environ['TAO_SPECS_DIR']
 tao_experiment_dir = os.environ['TAO_EXPERIMENT_DIR']
 nvidia_api_key = os.environ['NVIDIA_API_KEY']
 
-version = 2
+file_list = os.listdir(f"{local_data_dir}/ProcessedS1/")
 
-file_list = os.listdir(f"{local_data_dir}/v1/ProcessedS1/")
-
-for test_country in countries: 
+for test_country in countries:
     print(f"Country test: {test_country}")
     
-    train_image_dir = f"{local_data_dir}/v{version}/images/train/"
-    train_mask_dir = f"{local_data_dir}/v{version}/masks/train/"
+    train_image_dir = f"{local_data_dir}/images/train/"
+    train_mask_dir = f"{local_data_dir}/masks/train/"
 
     os.makedirs(train_image_dir, exist_ok=True)
     os.makedirs(train_mask_dir, exist_ok=True)
 
-    test_image_dir = f"{local_data_dir}/v{version}/images/test/"
-    test_mask_dir = f"{local_data_dir}/v{version}/masks/test/"
+    test_image_dir = f"{local_data_dir}/images/test/"
+    test_mask_dir = f"{local_data_dir}/masks/test/"
     
     os.makedirs(test_image_dir, exist_ok=True)
     os.makedirs(test_mask_dir, exist_ok=True)
@@ -40,8 +40,8 @@ for test_country in countries:
     # Distribute files to train and test directories
     for file in file_list:
         if file.split('.')[-1] == 'png':
-            src_image = f"{local_data_dir}/v1/ProcessedS1/{file}"
-            src_mask = f"{local_data_dir}/v1/ProcessedLabelHand/{file}"
+            src_image = f"{local_data_dir}/ProcessedS1/{file}"
+            src_mask = f"{local_data_dir}/ProcessedLabelHand/{file}"
             dest_image = train_image_dir if file.split('_')[0] != test_country else test_image_dir
             dest_mask = train_mask_dir if file.split('_')[0] != test_country else test_mask_dir
 

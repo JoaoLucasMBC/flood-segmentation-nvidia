@@ -1,12 +1,12 @@
-import os
-from PIL import Image
-from dotenv import load_dotenv
-from datetime import datetime, timedelta
-
 from sentinel_downloader.sentinel import Sentinel
 from sentinel_downloader.image_processing import scale_and_clip_image, count_obstructed_pixels
 from sentinel_downloader.utils import load_evalscript
 from sentinelhub import DataCollection, MimeType, SentinelHubRequest, SHConfig, BBox, CRS
+import os
+from PIL import Image
+from dotenv import load_dotenv
+from datetime import datetime, timedelta
+from tqdm import tqdm
 
 class Sentinel2(Sentinel):
 
@@ -36,12 +36,16 @@ class Sentinel2(Sentinel):
         return request.get_data()[0]
 
     def collect_image(self, list_coordinates, evalscript, time_interval, resolution, output_folder, filename):
-        for i, coords in enumerate(list_coordinates):
-            for j, coord in enumerate(coords): 
-                image = self.sentinelhub_request(evalscript, DataCollection.SENTINEL2_L2A, time_interval, BBox(coord, CRS.WGS84), resolution)
-                image = scale_and_clip_image(image)
-                output_filename = os.path.join(f"{output_folder}/sentinel2", f'{filename}_{i}_{j}.png')
-                Image.fromarray(image).save(output_filename)
+
+        with tqdm(total=len(list_coordinates) * len(list_coordinates[0]), desc="Downloading Sentinel2 Tiles", dynamic_ncols=True) as pbar:
+            for i, coords in enumerate(list_coordinates):
+                for j, coord in enumerate(coords): 
+                    image = self.sentinelhub_request(evalscript, DataCollection.SENTINEL2_L2A, time_interval, BBox(coord, CRS.WGS84), resolution)
+                    image = scale_and_clip_image(image)
+                    output_filename = os.path.join(f"{output_folder}/sentinel2", f'{filename}_{i}_{j}.png')
+                    Image.fromarray(image).save(output_filename)
+
+                    pbar.update(1)
     
     def collect_best_image(self, list_coordinates, evalscript, time_interval, resolution, output_folder, filename):
         time_interval = (datetime.strptime(time_interval[0], "%Y-%m-%d"), datetime.strptime(time_interval[1], "%Y-%m-%d"))
@@ -50,27 +54,30 @@ class Sentinel2(Sentinel):
         
         cloud_evalscript = load_evalscript("cloud")
 
-        for i, coords in enumerate(list_coordinates):
+        with tqdm(total=len(list_coordinates) * len(list_coordinates[0]), desc="Downloading Sentinel2 Tiles", dynamic_ncols=True) as pbar:
+            for i, coords in enumerate(list_coordinates):
 
-            best_time_interval = None
-            best_cloud_pixels = float("inf")
+                best_time_interval = None
+                best_cloud_pixels = float("inf")
 
-            for j, coord in enumerate(coords): 
-                for d in range(len(date_list) - 1):
-                    
-                    time_interval = (date_list[d], date_list[d + 1])
-
-                    image = self.sentinelhub_request(cloud_evalscript, DataCollection.SENTINEL2_L2A, time_interval, BBox(coord, CRS.WGS84), (512,512))
-                    obstructed_pixels = count_obstructed_pixels(image)
-
-                    if obstructed_pixels < best_cloud_pixels:
-                        best_time_interval = time_interval
-                        best_cloud_pixels = obstructed_pixels
+                for j, coord in enumerate(coords): 
+                    for d in range(len(date_list) - 1):
                         
-                    if best_cloud_pixels == 0:
-                        break
+                        time_interval = (date_list[d], date_list[d + 1])
 
-                image = self.sentinelhub_request(evalscript, DataCollection.SENTINEL2_L2A, best_time_interval, BBox(coord, CRS.WGS84), resolution)
-                image = scale_and_clip_image(image)
-                output_filename = os.path.join(f"{output_folder}/sentinel2", f'{filename}_{i}_{j}.png')
-                Image.fromarray(image).save(output_filename)
+                        image = self.sentinelhub_request(cloud_evalscript, DataCollection.SENTINEL2_L2A, time_interval, BBox(coord, CRS.WGS84), (512,512))
+                        obstructed_pixels = count_obstructed_pixels(image)
+
+                        if obstructed_pixels < best_cloud_pixels:
+                            best_time_interval = time_interval
+                            best_cloud_pixels = obstructed_pixels
+                            
+                        if best_cloud_pixels == 0:
+                            break
+
+                    image = self.sentinelhub_request(evalscript, DataCollection.SENTINEL2_L2A, best_time_interval, BBox(coord, CRS.WGS84), resolution)
+                    image = scale_and_clip_image(image)
+                    output_filename = os.path.join(f"{output_folder}/sentinel2", f'{filename}_{i}_{j}.png')
+                    Image.fromarray(image).save(output_filename)
+
+                    pbar.update(1)

@@ -85,10 +85,10 @@ class FloodModel:
 if __name__ == "__main__":
     import os
 
-    model_path = os.listdir("./model")[0]
-    model = FloodModel(os.path.join("./model", model_path), verbose=True)
+    model_path = os.listdir("/model")[0]
+    model = FloodModel(os.path.join("/model", model_path), verbose=True)
 
     for filename in os.listdir("./input"):
-        model.predict(os.path.join("./input", filename), os.path.join("./output", filename))
+        model.predict(os.path.join("/input", filename), os.path.join("/output", filename))
 
     print("Prediction finished!")

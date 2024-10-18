@@ -1,0 +1,15 @@
+services:
+  open-flood-model:
+    build: .
+    container_name: open-flood-model
+    environment:
+      - RUN_MODE=${RUN_MODE:-jupyter}  # Default is jupyter, can be overridden
+    ports:
+      - "8888:8888"  # Exposing port for JupyterLab, if needed
+    volumes:
+      - ${MODEL_PATH:-/path/to/default/model.onnx}:/model/model.onnx  # Default model path
+      - ${INPUT_FOLDER:-/path/to/default/input}:/input                # Default input folder
+      - ${OUTPUT_FOLDER:-/path/to/default/output}:/output             # Default output folder
+      - ./:/workspace                                                 # Mount current directory
+    env_file:
+      - .env  # Load environment variables from the .env file (optional)

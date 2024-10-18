@@ -8,10 +8,10 @@ from pathlib import Path
 
 # define simple grid visualizer
 def visualize_images(num_images=10):
-    overlay_path=os.path.join(os.environ['LOCAL_PROJECT_DIR'], f"v{os.environ['VERSION']}", 'tao_infer_testing', 'vis_overlay_tlt')
-    inference_path=os.path.join(os.environ['LOCAL_PROJECT_DIR'], f"v{os.environ['VERSION']}", 'tao_infer_testing', 'mask_labels_tlt')
-    actual_path=os.path.join(os.environ['LOCAL_DATA_DIR'], f"v{os.environ['VERSION']}", 'masks', 'val')
-    inference_images_path=os.path.join(os.environ['LOCAL_DATA_DIR'], f"v{os.environ['VERSION']}", 'images', 'val')
+    overlay_path=os.path.join(os.environ['LOCAL_PROJECT_DIR'], 'tao_infer_testing', 'vis_overlay_tlt')
+    inference_path=os.path.join(os.environ['LOCAL_PROJECT_DIR'], 'tao_infer_testing', 'mask_labels_tlt')
+    actual_path=os.path.join(os.environ['LOCAL_DATA_DIR'], 'masks', 'val')
+    inference_images_path=os.path.join(os.environ['LOCAL_DATA_DIR'], 'images', 'val')
         
     fig_dim=4
     fig, ax_arr=plt.subplots(num_images, 4, figsize=[4*fig_dim, num_images*fig_dim], sharex=True, sharey=True)

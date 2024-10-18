@@ -1,0 +1,15 @@
+model_config {
+  model_input_width: 512
+  model_input_height: 512
+  model_input_channels: 3
+  num_layers: 18
+  all_projections: true
+  arch: "resnet"
+  use_batch_norm: true
+  training_precision {
+    backend_floatx: FLOAT32
+  }
+}
+
+### NEW LINE
+
