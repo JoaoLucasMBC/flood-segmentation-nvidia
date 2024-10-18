@@ -7,3 +7,4 @@ shapely
 ipykernel
 geopandas
 scipy
+sentinel-downloader

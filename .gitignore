@@ -40,3 +40,8 @@ __pycache__/
 !/stats/data/output_canoas/**
 !/stats/data/output_canoas_no_flood
 !/stats/data/output_canoas_no_flood/**/
+
+.ipynb_checkpoints
+
+config.json
+ee.json
