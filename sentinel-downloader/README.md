@@ -106,15 +106,36 @@ If you want to collect Sentinel 1 imagery, you will need to follow the steps des
    - Save the downloaded JSON file in the workspace you'll use the package 
 
 7. Create or edit your .env file
+   - Create or edit a .env file in your current directory 
    - Add a field named <b>KEY_FILE</b> to the .env with the path to your credential JSON, example:
      ```
       KEY_FILE=/path/to_your/credentials.json
      ```
 
 ### Sentinel 2 - SentinelHub
-If you want to collect Sentinel 1 imagery, you will need to follow the steps described in this section.
+If you want to collect Sentinel 2 imagery, you will need to follow the steps described in this section.
 
--- TODO: sentinelhub credentials
+1. Create a Sentinel Hub account:
+   - Visit the <b>[setinel-hub website](https://www.sentinel-hub.com/)</b>
+   - Create your account
+   - Verify your account
+
+2. Access the Sentinel Hub dashboard
+   - Log in to your account
+   - Access the <b>sentinel hub dashboard</b>
+  
+3. Create a new OAuth client (credentials)
+   - In the dashboard go to your profile
+   - Create your <b>OAuth client</b>
+   - Copy both your <b>Client ID and Secret</b>
+
+7. Create or edit your .env file
+   - Create or edit a .env file in your current directory 
+   - Add the fields named <b>CLIENT_ID and CLIENT_SECRET</b> to the .env with your credentials, example:
+     ```
+      CLIENT_SECRET=paste_your_secret
+      CLIENT_ID=paste_your_id
+     ```
 
 ## Usage and Features
 Once tou have all setup, you can use Sentinel Downloader by creating a `config.json` file on the same 
