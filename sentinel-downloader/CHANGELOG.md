@@ -1,5 +1,9 @@
 # Changelog
 
+## [2.0.1] - 2024-10-22
+### Fixed
+- Fixed issue with downloading data from Sentinel-2 using cloud removal function not accounting for RGBA images.
+
 ## [2.0.0] - 2024-10-16
 ### Added 
 - Progress bar for downloading data.
