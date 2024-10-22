@@ -80,6 +80,6 @@ def scale_and_clip_image(image, factor=3.5 / 255, clip_range=(0, 1)):
         return np.concatenate([scaled_rgb, alpha], axis=-1)
 
 def count_obstructed_pixels(image):
-        cloud_pixels = np.all(image == 255, axis=-1)
-        black_pixels = np.all(image == 0, axis=-1)
+        cloud_pixels = np.all(image[:, :, :3] == 255, axis=-1)
+        black_pixels = np.all(image[:, :, :3] == 0, axis=-1)
         return np.sum(cloud_pixels) + np.sum(black_pixels)
