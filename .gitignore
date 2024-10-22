@@ -30,6 +30,7 @@ __pycache__/
 
 # Ignore everything in the stats/data folder
 /stats/data/**
+/mask-aug/test_images/
 
 # Un-ignore specific subdirectories
 !/stats/data/canoas
