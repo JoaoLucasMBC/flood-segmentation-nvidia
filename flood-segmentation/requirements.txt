@@ -3,3 +3,6 @@ pandas
 onnxruntime
 python-dotenv
 nvidia-tao
+albumentations
+torch
+torchvision
