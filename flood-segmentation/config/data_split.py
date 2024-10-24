@@ -14,6 +14,11 @@ image_count=len(file_list)
 train_image_list=sample(file_list, int(image_count*split))
 val_image_list=[file for file in file_list if file not in train_image_list]
 
+os.makedirs(os.path.join(os.environ['LOCAL_DATA_DIR'], 'images', 'train'))
+os.makedirs(os.path.join(os.environ['LOCAL_DATA_DIR'], 'images', 'val'))
+os.makedirs(os.path.join(os.environ['LOCAL_DATA_DIR'], 'masks', 'train'))
+os.makedirs(os.path.join(os.environ['LOCAL_DATA_DIR'], 'masks', 'val'))
+
 # move all training images to train directory
 for each_file in train_image_list: 
     if each_file.split('.')[-1]=='png': 

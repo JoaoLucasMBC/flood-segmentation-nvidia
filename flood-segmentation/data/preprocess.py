@@ -39,7 +39,7 @@ def preprocess_image(image_path, output_dir):
     # Save the rgb image in the output_dir
     image_name = os.path.splitext(os.path.basename(image_path))[0]
 
-    output_path = os.path.join(output_dir, f"{image_name}.png")
+    output_path = os.path.join(output_dir, f"{image_name.split('_S1Hand')[0]}.png")
 
     Image.fromarray(rgb_image).save(output_path)
     print(f"Saved image to {output_path}")
@@ -49,8 +49,8 @@ def main():
     load_dotenv(dotenv_path=Path('../config/.env'))
 
     # Preprocess the images in the 'data' directory
-    data_dir = os.path.join(".", f"v{os.environ['VERSION']}", "S1Hand")
-    output_dir = os.path.join(".", f"v{os.environ['VERSION']}", "ProcessedS1")
+    data_dir = "./S1Hand"
+    output_dir = os.path.join(os.environ['LOCAL_DATA_DIR'], "ProcessedS1")
 
     os.makedirs(output_dir, exist_ok=True)
 
