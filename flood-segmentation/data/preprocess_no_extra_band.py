@@ -48,8 +48,8 @@ def main():
     load_dotenv(dotenv_path=Path('../config/.env'))
 
     # Preprocess the images in the 'data' directory
-    data_dir = os.path.join(".", f"v{os.environ['VERSION']}", "S1Hand")
-    output_dir = os.path.join(".", f"v{os.environ['VERSION']}", "ProcessedS1")
+    data_dir = os.path.join(".", "S1Hand")
+    output_dir = os.path.join(os.environ['LOCAL_DATA_DIR'], "ProcessedS1")
 
     os.makedirs(output_dir, exist_ok=True)
 
