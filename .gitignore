@@ -30,6 +30,7 @@ __pycache__/
 
 # Ignore everything in the stats/data folder
 /stats/data/**
+/mask-aug/test_images/**
 
 # Un-ignore specific subdirectories
 !/stats/data/canoas
@@ -40,6 +41,18 @@ __pycache__/
 !/stats/data/output_canoas/**
 !/stats/data/output_canoas_no_flood
 !/stats/data/output_canoas_no_flood/**/
+!/mask-aug/test_images/masks_porto_alegre_s1
+!/mask-aug/test_images/masks_porto_alegre_s1/**
+!/mask-aug/test_images/masks_porto_alegre_s1_preflood
+!/mask-aug/test_images/masks_porto_alegre_s1_preflood/**
+!/mask-aug/test_images/porto_alegre_s1
+!/mask-aug/test_images/porto_alegre_s1/**
+!/mask-aug/test_images/porto_alegre_s1_preflood
+!/mask-aug/test_images/porto_alegre_s1_preflood/**
+!/mask-aug/test_images/porto_alegre_s2
+!/mask-aug/test_images/porto_alegre_s2/**
+!/mask-aug/test_images/porto_alegre_s2_preflood
+!/mask-aug/test_images/porto_alegre_s2_preflood/**
 
 .ipynb_checkpoints
 

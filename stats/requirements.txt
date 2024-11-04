@@ -8,3 +8,4 @@ ipykernel
 geopandas
 scipy
 sentinel-downloader
+scikit-image
