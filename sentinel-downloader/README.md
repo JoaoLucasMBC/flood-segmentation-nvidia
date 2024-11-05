@@ -192,9 +192,13 @@ This `config.json` contains the arguments for image downloading. The arguments a
 - **Default**: `"rgb"`
 - **Example**: `"rgb"`
 
-The evalscript paints over the classified pixels to highlight them:
+The evalscript paints over the classified pixels to highlight them. **The following examples are with no evalscript, urban, vegetation and water evalscripts**:
 
---TODO: put images of evalscript being used
+<img src="assets/rgb.png" alt="original_image" width="300" height="300">
+<img src="assets/urban.png" alt="urban_image" width="300" height="300">
+
+<img src="assets/vegetation.png" alt="vegetation_image" width="300" height="300">
+<img src="assets/water.png" alt="water_image" width="300" height="300">
 
 
 #### `cloud_removal` (EXCLUSIVE TO SENTINEL 2)
@@ -206,7 +210,9 @@ The evalscript paints over the classified pixels to highlight them:
 
 The difference between the image returned by the API with and without the cloud removal script:
 
---TODO: put comparision of cloud obstructed image and clear image
+<img src="assets/cloud_obstructed.png" alt="cloud_obstructed" width="300" height="300">
+<img src="assets/clear.png" alt="clear" width="300" height="300">
+
 
 ### Example config.json file
 An example of how your config.json file should look like is as follows:
