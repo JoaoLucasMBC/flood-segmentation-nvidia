@@ -41,6 +41,15 @@ __pycache__/
 !/stats/data/output_canoas/**
 !/stats/data/output_canoas_no_flood
 !/stats/data/output_canoas_no_flood/**/
+!/stats/data/output_canoas_improved/
+!/stats/data/output_canoas_improved/**/
+!/stats/data/output_canoas_final/
+!/stats/data/output_canoas_final/**/
+!/stats/data/canoas_s2/
+!/stats/data/canoas_s2/**/
+!/stats/data/canoas_s2_no_flood/
+!/stats/data/canoas_s2_no_flood/**/
+
 !/mask-aug/test_images/masks_porto_alegre_s1
 !/mask-aug/test_images/masks_porto_alegre_s1/**
 !/mask-aug/test_images/masks_porto_alegre_s1_preflood
